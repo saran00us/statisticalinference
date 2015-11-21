@@ -9,12 +9,7 @@ This Coursera-Statistical Inference(Data Science Specialization) project illustr
 
 #Synopsis
 The exponential distribution in R here is demonstrated using rexp() function with exponentials of 40 and lambda of 0.2 for a 1000 observations.
-
-#Results
-
-##Simulations
 Lets generate 1000 simulated averages for 40 exponentials and lambda of 0.2 using rexp()
-
 ```{r}
 library(ggplot2)
 library(knitr)
@@ -28,6 +23,7 @@ par(mar=rep(2,4))
 hist(mns,main="Distribution of averages of samples")
 ```
 
+#Results
 ##1. Sample Mean versus Theoretical Mean
 The next step is comparing the theortical and sample mean
 ```{r}
