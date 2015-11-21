@@ -1,0 +1,88 @@
+---
+title: "Statistical Inference Project Part 2  Saran Shanmugam"
+output: pdf_document
+---
+
+# Overview 
+
+The response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC). In this project, we are going to run the hypothesis to run tooth growth due to various dosage levels and supplements. The hypothesis test we are going to use is the Student’s T test. 
+
+
+
+```{r}
+library(datasets)
+data(ToothGrowth)
+str(ToothGrowth)
+```
+
+# Summary of the  Data
+
+This section will provide a brief summary of the data 
+
+```{r}
+summary(ToothGrowth)
+head(ToothGrowth)
+```
+
+#Exploration of the Data
+
+This section will explore the data briefly
+
+```{r}
+boxplot(len~supp, data=ToothGrowth, notch=FALSE, 
+col=(c("red","blue")), main="Tooth Growth", xlab="Supplement vs Length of Tooth")
+```
+
+we can see that the supplements does not significantly affect the tooth growth. 
+
+```{r}
+ boxplot(len~dose, data=ToothGrowth, notch=FALSE, 
+col=(c("red","blue")), main="Tooth Growth", xlab="Dosage Levels vs Length of Tooth")
+```
+
+We can see that the dosage levels affect the length of the tooth. 
+
+```{r}
+ boxplot(len~supp*dose, data=ToothGrowth, notch=FALSE, 
+col=(c("red","blue")), main="Tooth Growth", xlab="Supplement vs Dosage Levels")
+```
+
+# Assumptions
+
+Based on the above boxplots, we know what the Supplements affect the length of the Tooth significantly. But the supplements does not.
+
+Populations of the Guinea  pigs from which the samples are drawn are normally distributed and Standard Deviations are also equal
+
+#Hypothesis test
+
+```{r}
+#Supplement comparison
+ToothGrowth.VC <- subset(ToothGrowth, supp == "VC")
+ ToothGrowth.OJ <- subset(ToothGrowth, supp == "OJ")
+ t.test(ToothGrowth.VC$len,ToothGrowth.OJ$len)
+```
+
+As the confidence levels include 0, we cannot reject the null hypothesis that there is no significant difference in the impact of tooth length due to the 2 supplements. 
+
+```{r}
+ #Dosage comparison between 0.5 mg and 1 mg
+ToothGrowth.05<- subset(ToothGrowth, dose == 0.5)
+ ToothGrowth.10 <- subset(ToothGrowth, dose  == 1.0)
+ToothGrowth.20 <- subset(ToothGrowth, dose == 2.0)
+ t.test(ToothGrowth.05$len,ToothGrowth.10$len)
+```
+
+Comparison between Dosages 0.5 mg and 1.0 mg: As the confidence levels does not include 0, we can reject the null hypothesis that there is no significant difference in the impact of tooth length due to 0.5 mg and 1.0 mg dosage levels(there is a significant difference in tooth length) 
+
+```{r}
+ #Dosage comparison between 1 mg and 2 mg
+ t.test(ToothGrowth.10$len,ToothGrowth.20$len)
+```
+
+Comparison between Dosages 1 mg and 2 mg: As the confidence levels does not include 0, we can reject the null hypothesis that there is no significant difference in the impact of tooth length due to 1 mg and 2 mg dosage levels(there is a significant difference in tooth length) 
+
+
+#Conclusion
+
+Based on the above observations, we can say that the length of the tooth growth is impacted when Vitamin C dosage increases and it is proportionate. Supplement appears to not make a  significant difference. 
+
